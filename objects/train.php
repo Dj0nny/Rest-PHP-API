@@ -28,10 +28,8 @@ class Train {
         if($sqlInsertOK->execute([$this->id_train, $this->type, $this->departure_city, $this->arrival_city])) {
             return true;
         }
-
-
+        
         return false;
-
     }
 }
 
