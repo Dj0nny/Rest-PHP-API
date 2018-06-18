@@ -21,6 +21,18 @@ class Train {
         return $sqlOK;
     }
     
+    function create() {
+        $sqlInsert = "INSERT INTO ".$this->db_table."(id_train, type, departure_city, arrival_city) VALUES (?,?,?,?)";
+        $sqlInsertOK = $this->connection->prepare($sqlInsert);
+
+        if($sqlInsertOK->execute([$this->id_train, $this->type, $this->departure_city, $this->arrival_city])) {
+            return true;
+        }
+
+
+        return false;
+
+    }
 }
 
 ?>
