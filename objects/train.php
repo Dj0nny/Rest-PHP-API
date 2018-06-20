@@ -28,10 +28,16 @@ class Train {
         if($sqlInsertOK->execute([$this->id_train, $this->type, $this->departure_city, $this->arrival_city])) {
             return true;
         }
-
-
         return false;
+    }
 
+    function search($key) {
+        $sqlSearch = "SELECT * FROM ".$this->db_table." WHERE id_train = ?";
+        $sqlSearchOK = $this->connection->prepare($sqlSearch);
+
+        $sqlSearchOK->execute([$key]);
+
+        return $sqlSearchOK;
     }
 }
 
