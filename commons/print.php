@@ -10,31 +10,67 @@
 
     $train = new Train($db);
 
-    if(isset($_GET['id-train']) && $_GET['id-train'] != "") {
-        $idGET = $_GET['id-train'];
-        $query = $train->search($idGET);
-        $num = $query->rowCount();
+    switch ($_POST['searching_id']) {
+        case '1':
+            if(isset($_POST['id-train']) && $_POST['id-train'] != "") {
+                $idPOST = $_POST['id-train'];
+                $query = $train->search($idPOST);
+                $num = $query->rowCount();
+        
+                if($num > 0) {
+                    $result_elements = array();
+                    $result_elements['trains'] = array();
+        
+                    while($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                        extract($row);
+        
+                        $element = array(
+                            "id_train" => $id_train,
+                            "train_type" => $type,
+                            "departure"=> $departure_city,
+                            "arrival" => $arrival_city
+                        );
+        
+                        array_push($result_elements['trains'], $element);
+                    }
+        
+                    echo json_encode($result_elements);
+                } else {
+                    echo json_encode(array("message" => "No train found with this ID"));
+                }
+            }            
+            break;
 
-        if($num > 0) {
-            $result_elements = array();
-            $result_elements['trains'] = array();
+        case '2':
+                if(isset($_POST['departure']) || isset($_POST['arrival'])) {
+                    $departurePOST = $_POST['departure'];
+                    $arrivalPOST = $_POST['arrival'];
 
-            while($row = $query->fetch(PDO::FETCH_ASSOC)) {
-                extract($row);
+                    $query = $train->searchByCity($departurePOST, $arrivalPOST);
+                    $num = $query->rowCount();
 
-                $element = array(
-                    "id_train" => $id_train,
-                    "train_type" => $type,
-                    "departure"=> $departure_city,
-                    "arrival" => $arrival_city
-                );
-
-                array_push($result_elements['trains'], $element);
-            }
-
-            echo json_encode($result_elements);
-        } else {
-            echo json_encode(array("message" => "No train found with this ID"));
-        }
+                    if($num > 0) {
+                        $result_elements = array();
+                        $result_elements['trains'] = array();
+            
+                        while($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                            extract($row);
+            
+                            $element = array(
+                                "id_train" => $id_train,
+                                "train_type" => $type,
+                                "departure"=> $departure_city,
+                                "arrival" => $arrival_city
+                            );
+            
+                            array_push($result_elements['trains'], $element);
+                        }
+            
+                        echo json_encode($result_elements);
+                    } else {
+                        echo json_encode(array("message" => "No train found with this ID"));
+                    }
+                }
+            break;
     }
 ?>

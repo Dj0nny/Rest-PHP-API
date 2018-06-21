@@ -39,6 +39,15 @@ class Train {
 
         return $sqlSearchOK;
     }
+
+    function searchByCity($cityDep, $cityArri) {
+        $sqlSearchCity = "SELECT * FROM ".$this->db_table." WHERE departure_city = ? OR arrival_city = ?";
+        $sqlSearchCityOK = $this->connection->prepare($sqlSearchCity);
+
+        $sqlSearchCityOK->execute([$cityDep, $cityArri]);
+
+        return $sqlSearchCityOK;
+    }
 }
 
 ?>

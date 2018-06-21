@@ -31,12 +31,13 @@
 
                 <div class="tabs-content" data-tabs-content="control-tabs">
                     <div class="tabs-panel is-active" id="panel0">
-                        <div id="form-container">
-                            <form action="../commons/print.php" method="GET">
+                        <div class="form-container">
+                            <form action="../commons/print.php" method="POST">
                                 <div class="row">
                                     <div class="columns medium-6">
                                         <label for="id-train">Insert the train ID</label>
                                         <input type="number" name="id-train" id="id-train" required />
+                                        <input type="hidden" value="1" name="searching_id"/>
                                     </div>
                                     <div class="columns medium-4">
                                         <input type="submit" class="button" value="Search" />
@@ -46,6 +47,26 @@
                         </div>
                     </div>
                     <div class="tabs-panel" id="panel1">
+                        <div class="form-contaniner">
+                            <form action="../commons/print.php" method="POST">
+                                <div class="row">
+                                    <div class="columns medium-6">
+                                        <label for="departure">Departure city</label>
+                                        <input type="text" id="departure" name="departure" />
+                                    </div>
+                                    <div class="columns medium-6">
+                                        <label for="arrival">Arrival city</label>
+                                        <input type="text" id="arrival" name="arrival" />
+                                        <input type="hidden" value="2" name="searching_id" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="columns medium-12 text-center">
+                                        <input type="submit" class="button" value="Search" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                     <div class="tabs-panel" id="panel2">
 
