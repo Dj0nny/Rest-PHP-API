@@ -8,3 +8,4 @@ This is a simple example PHP based of data convertion from a database to a JSON 
     1. The reading of all data
     2. The insert of a data
     3. Searching a data by ID and by city
+    4. The delete of a data

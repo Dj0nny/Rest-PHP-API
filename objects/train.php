@@ -48,6 +48,17 @@ class Train {
 
         return $sqlSearchCityOK;
     }
+
+    function delete() {
+        $queryDelete = "DELETE FROM ".$this->db_table." WHERE id_train = ?";
+        $queryDeleteOK = $this->connection->prepare($queryDelete);
+
+        if($queryDeleteOK->execute([$this->id_train])) {
+            return true;
+        }
+
+        return false;
+    }
 }
 
 ?>
